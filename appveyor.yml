@@ -20,6 +20,11 @@ environment:
   # If you do not want a numpy build restriction, set
   # NUMPY_BUILD_RESTRICTION=""
   NUMPY_BUILD_RESTRICTION: "numpy <1.12"
+
+  # This primarily determines the number of numpy-pinned builds because
+  # the python version restriction above overrides this broader setting.
+  MAX_N_MINOR_VERSIONS: "4"
+
   BINSTAR_TOKEN:
     # Paste the security token for your destination conda channel here.
     secure: In551w7v371boSMxAcNcHccXMbcLyVImifhayYopb02ZqkUGYV8QyDu1tjVbKaJz
@@ -89,4 +94,4 @@ test_script:
     # Get ready to build.
     - "%CMD_IN_ENV% extrude_recipes requirements.yml"
     # Packages are uploaded as they are built.
-    - if exist recipes %CMD_IN_ENV% conda build-all recipes --matrix-conditions "python %PYTHON_BUILD_RESTRICTIONS%" "%NUMPY_BUILD_RESTRICTION%"  --matrix-max-n-minor-versions 3 --inspect-channels conda-forge astropy %UPLOAD%
+    - if exist recipes %CMD_IN_ENV% conda build-all recipes --matrix-conditions "python %PYTHON_BUILD_RESTRICTIONS%" "%NUMPY_BUILD_RESTRICTION%"  --matrix-max-n-minor-versions %MAX_N_MINOR_VERSIONS% --inspect-channels conda-forge astropy %UPLOAD%

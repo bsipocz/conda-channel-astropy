@@ -54,9 +54,9 @@ install:
     # Install a couple of dependencies we need for sure.
     - conda install --quiet --yes astropy anaconda-client jinja2 cython pycrypto
 
+    - conda config --add channels conda-forge
     - conda config --add channels astropy
     - conda config --add channels astropy-ci-extras
-    - conda config --add channels conda-forge
 
     # "Add" defaults to make it the highest priority channel to avoid
     # downgrading conda itself from conda-forge.
@@ -86,4 +86,4 @@ script:
     - extrude_recipes requirements.yml
     # Packages are uploaded as they are built.
 
-    - if [[ -d recipes ]]; then conda build-all recipes --matrix-conditions "python $PYTHON_BUILD_RESTRICTIONS" "$NUMPY_BUILD_RESTRICTION"  --matrix-max-n-minor-versions $MAX_N_MINOR_VERSIONS --inspect-channels conda-forge astropy $UPLOAD; fi
+    - if [[ -d recipes ]]; then conda build-all recipes --matrix-conditions "python $PYTHON_BUILD_RESTRICTIONS" "$NUMPY_BUILD_RESTRICTION"  --matrix-max-n-minor-versions $MAX_N_MINOR_VERSIONS --inspect-channels conda-forge astropy astropy-ci-extras $UPLOAD; fi

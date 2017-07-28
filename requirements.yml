@@ -207,3 +207,9 @@
   version: 0.1
 
 - name: extinction
+
+- name: hips
+  version: 0.1
+  python: '>=3.6'
+  excluded_platforms:
+      - 'win-64'
